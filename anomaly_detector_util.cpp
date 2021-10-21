@@ -46,6 +46,12 @@ Line linear_reg(Point **points, int size) {
         yArr[i] = points[i]->y;
     }
 
+
+float dev(Point p,Line l) {
+    float dist = abs(p.y - l.f(x));
+    return dist;
+}
+
     float a = cov(xArr, yArr, size)/var(xArr, size);
     float b = E(yArr) - a * E(xArr); 
     Line y(a,b);
@@ -68,3 +74,4 @@ Line linear_reg(Point **points, int size) {
 // float dev(Point p, Point **points, int size);
 // // returns the deviation between point p and the line
 // float dev(Point p, Line l);
+
