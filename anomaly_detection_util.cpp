@@ -8,14 +8,14 @@
 
 #include <math.h>
 #include <cmath>
-#include "anomaly_detector_util.h"
-
-float avg(float* x, int size){
+#include "anomaly_detection_util.h"
+//??????????????????????????????????????????????????????????????????
+float avg(float* x, int size)
 {
     float avarage = 0;
     int sum = 0;
     for (int i = 0; i < size; i++) {
-        sum = sum + arr[i];
+        sum = sum + x[i];
     }
 
     avarage = sum / size;
@@ -23,9 +23,9 @@ float avg(float* x, int size){
 }
 
 // returns the variance of X and Y
- float var(float *x, int size) {
+float var(float *x, int size) {
      float ans = 0;
-     float mu = avg(x);
+     float mu = avg(x, size);
      for (int i = 0; i <= size; x++, i++) {
          ans += (*x - mu) * (*x - mu);
      }
@@ -36,14 +36,14 @@ float avg(float* x, int size){
 float cov(float *x, float *y, int size)
 {
     float cov;
-    float Ex = avg(x);
-    float Ey = avg(y);
+    float Ex = avg(x, size);
+    float Ey = avg(y, size);
     // cov = avg(x - Ex)*(y-Ey);
     float *xy;
     for (int i = 0; i < size; i++) {
         xy[i] = x[i]*y[i];
     }
-    cov = avg(xy) - avg(x)*avg(y);
+    cov = avg(xy, size) - avg(x, size)*avg(y, size);
     return cov;
 }
 
@@ -63,7 +63,7 @@ Line linear_reg(Point **points, int size) {
         yArr[i] = points[i]->y;
     }
     float a = cov(xArr, yArr, size)/var(xArr, size);
-    float b = avg(yArr) - a * avg(xArr);
+    float b = avg(yArr, size) - a * avg(xArr, size);
     return Line(a,b);
 }
 
