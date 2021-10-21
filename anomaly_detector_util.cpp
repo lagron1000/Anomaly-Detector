@@ -32,7 +32,3 @@ float dev(Point p,Line l) {
     float dist = abs(p.y - l.f(x));
     return dist;
 }
-
-float OR() {
-    return "OR";
-}
