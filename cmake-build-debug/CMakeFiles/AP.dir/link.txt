@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/AP.dir/anomaly_detection_util.cpp.o CMakeFiles/AP.dir/MainTrain.cpp.o -o AP 
