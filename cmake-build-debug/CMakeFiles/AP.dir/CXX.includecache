@@ -6,6 +6,12 @@
 
 #IncludeRegexTransform: 
 
+/home/linux-agron/Documents/AP/MainTrain.cpp
+iostream
+-
+anomaly_detection_util.h
+/home/linux-agron/Documents/AP/anomaly_detection_util.h
+
 /home/linux-agron/Documents/AP/anomaly_detection_util.cpp
 math.h
 -
