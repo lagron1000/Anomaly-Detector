@@ -39,7 +39,7 @@ float cov(float *x, float *y, int size)
     float Ex = avg(x, size);
     float Ey = avg(y, size);
     // cov = avg(x - Ex)*(y-Ey);
-    float *xy;
+    float xy[size];
     for (int i = 0; i < size; i++) {
         xy[i] = x[i]*y[i];
     }
@@ -55,8 +55,8 @@ float pearson(float* x, float* y, int size) {
 
 Line linear_reg(Point **points, int size) {
     //Line l = new Linavg(float x,float y);
-    float *xArr;
-    float *yArr;
+    float xArr[size];
+    float yArr[size];
     for (int i = 0; i < size; i++)
     {
         xArr[i] = points[i]->x;

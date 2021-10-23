@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/linux-agron/Documents/AP/anomaly_detection_util.cpp
+math.h
+-
+cmath
+-
+anomaly_detection_util.h
+/home/linux-agron/Documents/AP/anomaly_detection_util.h
+
+/home/linux-agron/Documents/AP/anomaly_detection_util.h
+
