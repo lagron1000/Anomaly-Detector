@@ -118,3 +118,6 @@ float dev(Point p,Line l) {
     float dist = abs(p.y - l.f(p.x));
     return dist;
 }
+/**
+* CHECK CHECK CHECK - OR
+*/
