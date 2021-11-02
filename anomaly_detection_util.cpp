@@ -5,7 +5,7 @@
  * Or Spiegel 318720067
  * Lior Agron 208250225
  */
-// TESTING
+// TESTed
 #include <math.h>
 #include <cmath>
 #include "anomaly_detection_util.h"
