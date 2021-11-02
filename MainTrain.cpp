@@ -13,8 +13,6 @@ bool wrong(float val, float expected){
 int main(){
     const int N=10;
     float x[]={1,2,3,4,5,6,7,8,9,10};
-    //const int NOr = 3;
-    //float OrsTest[] = {1,2,3};
     float y[]={2.1,4.2,6.1,8.1,10.3,12.2,14.4,16.1,18.2,20.3};
 
     Point* ps[N];
