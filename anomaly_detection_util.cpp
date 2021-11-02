@@ -32,6 +32,7 @@ float summer(float *x, int size) {
  * @return
  */
 float avg(float *x, int size) {
+    if (!size) return 0;
     //sum
     float summing = summer(x, size);
     //quo for the average
@@ -47,6 +48,7 @@ float avg(float *x, int size) {
  * used: Or's avg avg func
  */
 float var(float *x, int size) {
+    if (!size) return 0;
     float quo = 0;
     float sum = 0;
     for (int i = 0; i < size; i++) {
@@ -66,8 +68,7 @@ float var(float *x, int size) {
  * @param size
  * @return the cov.
  */
-float cov(float *x, float *y, int size)
-{
+float cov(float *x, float *y, int size) {
     float cov = 0;
     float Ex = avg(x, size);
     float Ey = avg(y, size);
@@ -85,9 +86,10 @@ float cov(float *x, float *y, int size)
  */
 float pearson(float* x, float* y, int size) {
     float coVar = cov(x, y, size);
-    float standardDeviation = sqrt(var(x, size)) * sqrt(var(y, size));
+    float standardDeviation = std::sqrt(var(x, size)) * std::sqrt(var(y, size));
     return coVar / standardDeviation;
 }
+
 
 /**
  * Using linear regression to form a linear line from an array of points. we find the slope by dividing the
@@ -110,11 +112,11 @@ Line linear_reg(Point **points, int size) {
 
 float dev(Point p,Point** points, int size) {
     Line l = linear_reg(points, size);
-    float dist = abs(p.y - l.f(p.x));
+    float dist = std::abs(p.y - l.f(p.x));
     return dist;
 }
 
 float dev(Point p,Line l) {
-    float dist = abs(p.y - l.f(p.x));
+    float dist = std::abs(p.y - l.f(p.x));
     return dist;
 }
