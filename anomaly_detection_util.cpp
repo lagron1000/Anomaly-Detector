@@ -107,17 +107,31 @@ Line linear_reg(Point **points, int size) {
     return Line(a,b);
 }
 
-
+/**
+ * the deviation
+ * @param p
+ * @param points
+ * @param size
+ * @return
+ */
 float dev(Point p,Point** points, int size) {
     Line l = linear_reg(points, size);
-    float dist = abs(p.y - l.f(p.x));
-    return dist;
-}
-
-float dev(Point p,Line l) {
-    float dist = abs(p.y - l.f(p.x));
+    float dist =p.y - l.f(p.x);
+    if (dist<0) {
+        dist = -1*dist;
+    }
     return dist;
 }
 /**
-* CHECK CHECK CHECK - OR
-*/
+ *
+ * @param p
+ * @param l
+ * @return
+ */
+float dev(Point p,Line l) {
+    float dist = p.y - l.f(p.x);
+    if (dist<0) {
+        dist = -1*dist;
+    }
+    return dist;
+}
