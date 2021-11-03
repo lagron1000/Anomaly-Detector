@@ -5,7 +5,7 @@
  * Or Spiegel 318720067
  * Lior Agron 208250225
  */
-
+// TESTed
 #include <math.h>
 #include <cmath>
 #include "anomaly_detection_util.h"
@@ -109,14 +109,35 @@ Line linear_reg(Point **points, int size) {
     return Line(a,b);
 }
 
-
+/**
+ * the deviation
+ * @param p
+ * @param points
+ * @param size
+ * @return
+ */
 float dev(Point p,Point** points, int size) {
     Line l = linear_reg(points, size);
+<<<<<<< HEAD
     float dist = std::abs(p.y - l.f(p.x));
+=======
+    float dist =p.y - l.f(p.x);
+    if (dist<0) {
+        dist = -1*dist;
+    }
+>>>>>>> main
     return dist;
 }
-
+/**
+ *
+ * @param p
+ * @param l
+ * @return
+ */
 float dev(Point p,Line l) {
     float dist = std::abs(p.y - l.f(p.x));
+    if (dist<0) {
+        dist = -1*dist;
+    }
     return dist;
 }
