@@ -6,6 +6,9 @@
 
 #IncludeRegexTransform: 
 
+<<<<<<< HEAD
+/home/linux-agron/Documents/AP/anomaly_detection_util.cpp
+=======
 /home/orspiegel/code/test/Anomaly-Detector/MainTrain.cpp
 iostream
 -
@@ -13,6 +16,7 @@ anomaly_detection_util.h
 /home/orspiegel/code/test/Anomaly-Detector/anomaly_detection_util.h
 
 /home/orspiegel/code/test/Anomaly-Detector/anomaly_detection_util.cpp
+>>>>>>> main
 math.h
 -
 cmath
