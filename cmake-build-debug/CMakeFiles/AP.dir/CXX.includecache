@@ -6,23 +6,55 @@
 
 #IncludeRegexTransform: 
 
-<<<<<<< HEAD
-/home/linux-agron/Documents/AP/anomaly_detection_util.cpp
-=======
-/home/orspiegel/code/test/Anomaly-Detector/MainTrain.cpp
-iostream
+/home/linux-agron/Documents/AP/AnomalyDetector.h
+string
 -
-anomaly_detection_util.h
-/home/orspiegel/code/test/Anomaly-Detector/anomaly_detection_util.h
+vector
+-
+timeseries.h
+/home/linux-agron/Documents/AP/timeseries.h
+math.h
+/home/linux-agron/Documents/AP/math.h
 
-/home/orspiegel/code/test/Anomaly-Detector/anomaly_detection_util.cpp
->>>>>>> main
+/home/linux-agron/Documents/AP/SimpleAnomalyDetector.cpp
+SimpleAnomalyDetector.h
+/home/linux-agron/Documents/AP/SimpleAnomalyDetector.h
+string
+-
+
+/home/linux-agron/Documents/AP/SimpleAnomalyDetector.h
+anomaly_detection_util.h
+/home/linux-agron/Documents/AP/anomaly_detection_util.h
+AnomalyDetector.h
+/home/linux-agron/Documents/AP/AnomalyDetector.h
+vector
+-
+algorithm
+-
+string.h
+-
 math.h
 -
-cmath
--
-anomaly_detection_util.h
-/home/orspiegel/code/test/Anomaly-Detector/anomaly_detection_util.h
 
-/home/orspiegel/code/test/Anomaly-Detector/anomaly_detection_util.h
+/home/linux-agron/Documents/AP/anomaly_detection_util.h
+
+/home/linux-agron/Documents/AP/timeseries.h
+fstream
+-
+iosfwd
+-
+string
+-
+vector
+-
+sstream
+-
+map
+-
+iostream
+-
+string
+/home/linux-agron/Documents/AP/string
+list
+-
 

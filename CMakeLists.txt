@@ -8,4 +8,9 @@ include_directories(.)
 add_executable(AP
         anomaly_detection_util.cpp
         anomaly_detection_util.h
-        MainTrain.cpp)
+        MainTrain.cpp
+        SimpleAnomalyDetector.cpp
+        SimpleAnomalyDetector.h
+        AnomalyDetector.h
+        timeseries.cpp
+        timeseries.h)
