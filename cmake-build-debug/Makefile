@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/orspiegel/clion-2021.2.3/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /opt/clion-2021.2.3/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/orspiegel/clion-2021.2.3/bin/cmake/linux/bin/cmake -E rm -f
+RM = /opt/clion-2021.2.3/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/orspiegel/code/test/Anomaly-Detector
+CMAKE_SOURCE_DIR = /home/linux-agron/Documents/AP
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/orspiegel/code/test/Anomaly-Detector/cmake-build-debug
+CMAKE_BINARY_DIR = /home/linux-agron/Documents/AP/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /home/orspiegel/code/test/Anomaly-Detector/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/orspiegel/clion-2021.2.3/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/opt/clion-2021.2.3/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -78,7 +78,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/orspiegel/clion-2021.2.3/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/opt/clion-2021.2.3/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -87,9 +87,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/orspiegel/code/test/Anomaly-Detector/cmake-build-debug/CMakeFiles /home/orspiegel/code/test/Anomaly-Detector/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/linux-agron/Documents/AP/cmake-build-debug/CMakeFiles /home/linux-agron/Documents/AP/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/orspiegel/code/test/Anomaly-Detector/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/linux-agron/Documents/AP/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -153,6 +153,30 @@ MainTrain.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/MainTrain.cpp.s
 .PHONY : MainTrain.cpp.s
 
+SimpleAnomalyDetector.o: SimpleAnomalyDetector.cpp.o
+.PHONY : SimpleAnomalyDetector.o
+
+# target to build an object file
+SimpleAnomalyDetector.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/SimpleAnomalyDetector.cpp.o
+.PHONY : SimpleAnomalyDetector.cpp.o
+
+SimpleAnomalyDetector.i: SimpleAnomalyDetector.cpp.i
+.PHONY : SimpleAnomalyDetector.i
+
+# target to preprocess a source file
+SimpleAnomalyDetector.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/SimpleAnomalyDetector.cpp.i
+.PHONY : SimpleAnomalyDetector.cpp.i
+
+SimpleAnomalyDetector.s: SimpleAnomalyDetector.cpp.s
+.PHONY : SimpleAnomalyDetector.s
+
+# target to generate assembly for a file
+SimpleAnomalyDetector.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/SimpleAnomalyDetector.cpp.s
+.PHONY : SimpleAnomalyDetector.cpp.s
+
 anomaly_detection_util.o: anomaly_detection_util.cpp.o
 .PHONY : anomaly_detection_util.o
 
@@ -177,6 +201,30 @@ anomaly_detection_util.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/anomaly_detection_util.cpp.s
 .PHONY : anomaly_detection_util.cpp.s
 
+timeseries.o: timeseries.cpp.o
+.PHONY : timeseries.o
+
+# target to build an object file
+timeseries.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/timeseries.cpp.o
+.PHONY : timeseries.cpp.o
+
+timeseries.i: timeseries.cpp.i
+.PHONY : timeseries.i
+
+# target to preprocess a source file
+timeseries.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/timeseries.cpp.i
+.PHONY : timeseries.cpp.i
+
+timeseries.s: timeseries.cpp.s
+.PHONY : timeseries.s
+
+# target to generate assembly for a file
+timeseries.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/timeseries.cpp.s
+.PHONY : timeseries.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -189,9 +237,15 @@ help:
 	@echo "... MainTrain.o"
 	@echo "... MainTrain.i"
 	@echo "... MainTrain.s"
+	@echo "... SimpleAnomalyDetector.o"
+	@echo "... SimpleAnomalyDetector.i"
+	@echo "... SimpleAnomalyDetector.s"
 	@echo "... anomaly_detection_util.o"
 	@echo "... anomaly_detection_util.i"
 	@echo "... anomaly_detection_util.s"
+	@echo "... timeseries.o"
+	@echo "... timeseries.i"
+	@echo "... timeseries.s"
 .PHONY : help
 
 
