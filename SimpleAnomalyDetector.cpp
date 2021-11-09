@@ -14,6 +14,7 @@ SimpleAnomalyDetector::~SimpleAnomalyDetector() {
 
 
 void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
+    float corThreshold = 0.9;
     float p = 0;
     float m = 0;
     int j = 0;
@@ -48,11 +49,31 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
             p = pearson(valuesA, valuesB, size);
             // if pearson is negative - multiply it by -1.
             if (p < 0 ) p = (-1) * p;
-            // if this
+            if (p > corThreshold) {
+                std::vector<Point*> points;
+                for (int t = 0; t <= size; t++) {
+                    Point* p = new Point(valuesA[t], valuesB[t]);
+                    points.push_back(p);
+                }
+                correlatedFeatures newCF;
+                newCF.corrlation = p;
+                newCF.feature1 = pair1[0];
+                newCF.feature2 = pair1[1];
+                // linear_reg() accepts an a Array so we convert the vectore to one
+                // using the pointer to the first element.
+                Line l = linear_reg(&points[0], size);
+                newCF.lin_reg = l;
+                float largestDev = 0;
+                for (int t = 0; t <= size; t++) {
+                    float d = dev(*points[t], l);
+                    if (largestDev < d) largestDev = d;
+                }
+                newCF.threshold = largestDev * 1.1;
+                cf.push_back(newCF);
+            }
             if (p > m) {
                 m = p;
                 j = index;
-                correlated.push_back(pair1);
             }
         }
         index++;
@@ -61,5 +82,12 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
 
 vector<AnomalyReport> SimpleAnomalyDetector::detect(const TimeSeries& ts){
 	// TODO Auto-generated destructor stub
+//    return vector<AnomalyReport> ();
 }
+
+//float getCorrelation(vector<float> feature_a, vector<float> feature_b) {
+//    // TODO Auto-generated destructor stub
+//    return 0;
+//}
+
 
