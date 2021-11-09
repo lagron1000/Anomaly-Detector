@@ -13,7 +13,9 @@
 struct correlatedFeatures{
 	string feature1,feature2;  // names of the correlated features
 	float corrlation;
+    // a line made from all points (feat1[i], feat2[i]);
 	Line lin_reg;
+    //largest distance of a point from the line (multiplied by 1.1);
 	float threshold;
 };
 
@@ -23,7 +25,7 @@ class SimpleAnomalyDetector:public TimeSeriesAnomalyDetector{
 public:
 	SimpleAnomalyDetector();
 	virtual ~SimpleAnomalyDetector();
-
+//    virtual float getCorrelation(vector<float> feature_a, vector<float> feature_b);
 	virtual void learnNormal(const TimeSeries& ts);
 	virtual vector<AnomalyReport> detect(const TimeSeries& ts);
 

@@ -16,6 +16,24 @@ timeseries.h
 math.h
 /home/linux-agron/Documents/AP/math.h
 
+/home/linux-agron/Documents/AP/MainTrain.cpp
+math.h
+-
+iostream
+-
+vector
+-
+AnomalyDetector.h
+/home/linux-agron/Documents/AP/AnomalyDetector.h
+SimpleAnomalyDetector.h
+/home/linux-agron/Documents/AP/SimpleAnomalyDetector.h
+fstream
+-
+stdlib.h
+-
+time.h
+-
+
 /home/linux-agron/Documents/AP/SimpleAnomalyDetector.cpp
 SimpleAnomalyDetector.h
 /home/linux-agron/Documents/AP/SimpleAnomalyDetector.h
