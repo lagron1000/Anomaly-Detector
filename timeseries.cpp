@@ -37,11 +37,18 @@ map<string, std :: vector<float>> TimeSeries ::getMap() const {
     return flightData;
 }
 
+int TimeSeries :: getColSize() const {
+    return collumnSize;
+}
+
+
+
 /**************************************************
  * constructor, CSV file reader
  * @param CSVfileName
  **************************************************/
 TimeSeries::TimeSeries(const char *CSVfileName) {
+    collumnSize = 0;
     ifstream orAndLiorStream(CSVfileName);
     if (!orAndLiorStream.is_open()) {
         cout << "Didn't open! ERROR" << endl;
@@ -62,12 +69,14 @@ TimeSeries::TimeSeries(const char *CSVfileName) {
     // updating the header vector - only the headers of the given data!
     for (int j = 0; j < split_line.size(); j++) {
         headers.push_back(split_line[j]);
+        rowSize++;
     }
     // the features of the current header's flight!
     vector<float> data_content[headers.size()];
     // Reading the rest of the file for the data while there's more left to read.
     while (getline(orAndLiorStream, lineToStore)) {
          split_line = splitter(lineToStore);
+         collumnSize++;
         for (int i = 0; i < split_line.size(); i++) {
             data_content[i].push_back(stof(split_line[i]));
         }
@@ -80,3 +89,4 @@ TimeSeries::TimeSeries(const char *CSVfileName) {
 
 orAndLiorStream.close();
 }
+

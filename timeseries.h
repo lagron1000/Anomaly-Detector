@@ -17,11 +17,14 @@ class TimeSeries {
     const char* fileName;
     map<string, std :: vector<float>> flightData;
     vector<string> headers;
+    int collumnSize = 0;
+    int rowSize = 0;
 public:
     explicit TimeSeries (const char* CSVfileName);
     // why explicit?
     vector<string> splitter(string givenString);
     vector<string> getHeaders();
+    int getColSize() const;
     map<string, std :: vector<float>> getMap() const;
 };
 
