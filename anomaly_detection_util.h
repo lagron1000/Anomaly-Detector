@@ -1,4 +1,12 @@
-// returns the variance of X and Y 
+/*
+ * anomaly_detection_util.cpp
+ *
+ * Author:
+ * Or Spiegel 318720067
+ * Lior Agron 208250225
+ */
+
+// returns the variance of X and Y
 float var(float* x, int size); 
  
 // returns the covariance of X and Y 
