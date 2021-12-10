@@ -19,6 +19,12 @@ SimpleAnomalyDetector::~SimpleAnomalyDetector() {
 	// TODO Auto-generated destructor stub
 }
 
+void deletePoints(std::vector<Point*> points) {
+    for (int i = 0; i < points.size(); i++) {
+        delete points[i];
+    }
+}
+
 std::vector<Point*> getPointsVector(float* a, float* b, int size) {
     std::vector<Point*> points;
     for (int t = 0; t <= size; t++) {
@@ -108,6 +114,8 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
                 // using the pointer to the first element.
                 cfLine = linear_reg(&points[0], size);
                 cfThresh = getCFThreshold(points, cfLine, size);
+                // TODO: delete points
+                deletePoints(points);
             }
             index++;
         }
