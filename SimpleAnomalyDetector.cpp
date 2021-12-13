@@ -51,7 +51,7 @@ int checkPairs(std::vector<string*> pairsChecked, string* newPair) {
     return pairFound;
 }
 
-correlatedFeatures makeCF(string feat1, string feat2, float p, Line l, float t) {
+correlatedFeatures SimpleAnomalyDetector::makeCF(string feat1, string feat2, float p, Line l, float t) {
     correlatedFeatures newCF;
     newCF.corrlation = p;
     newCF.feature1 = feat1;
@@ -101,22 +101,8 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
             p = pearson(valuesA, valuesB, size);
             // if pearson is negative - multiply it by -1.
             if (p < 0 ) p = (-1) * p;
-            if (p >= m) {
-                foundCorrelationFlag = 1;
-                j = index;
-                // we want to couple this feat with its most correlative partner only, thus we up the local threshold
-                // everytime we find a feat with witch featA is more correlative.
-                m = p;
-                std::vector<Point*> points = getPointsVector(valuesA, valuesB, size);
-                feat1 = pair1[0];
-                feat2 = pair1[1];
-                // linear_reg() accepts an Array so we convert the vector to one
-                // using the pointer to the first element.
-                cfLine = linear_reg(&points[0], size);
-                cfThresh = getCFThreshold(points, cfLine, size);
-                // TODO: delete points
-                deletePoints(points);
-            }
+            considerAddingCF(p, &m, &j, &index, valuesA, valuesB, size, &feat1,
+                             &feat2, pair1, &cfLine, &cfThresh, &foundCorrelationFlag);
             index++;
         }
         // only do the following if we found a correlating feature.
@@ -124,6 +110,26 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
             correlatedFeatures newCF = makeCF(feat1, feat2, m, cfLine, cfThresh);
             cf.push_back(newCF);
         }
+    }
+}
+
+void SimpleAnomalyDetector :: considerAddingCF(float p, float* m, int* j, int* index, float* valuesA, float* valuesB,
+                                              int size, string* feat1, string* feat2, string* pair1,
+                                              Line* cfLine, float* cfThresh, int* f) {
+    if (p >= *m) {
+        *f = 1;
+        *j = *index;
+        // we want to couple this feat with its most correlative partner only, thus we up the local threshold
+        // everytime we find a feat with witch featA is more correlative.
+        *m = p;
+        std::vector<Point*> points = getPointsVector(valuesA, valuesB, size);
+        *feat1 = pair1[0];
+        *feat2 = pair1[1];
+        // linear_reg() accepts an Array so we convert the vector to one
+        // using the pointer to the first element.
+        *cfLine = linear_reg(&points[0], size);
+        *cfThresh = getCFThreshold(points, *cfLine, size);
+        deletePoints(points);
     }
 }
 

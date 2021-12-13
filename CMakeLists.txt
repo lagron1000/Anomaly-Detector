@@ -13,4 +13,8 @@ add_executable(AP
         SimpleAnomalyDetector.h
         AnomalyDetector.h
         timeseries.cpp
-        timeseries.h)
+        timeseries.h
+        minCircle.cpp
+        minCircle.h
+        HybridAnomalyDetector.cpp
+        HybridAnomalyDetector.h)

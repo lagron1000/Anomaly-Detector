@@ -23,8 +23,6 @@ string
 -
 
 /home/linux-agron/Documents/AP/SimpleAnomalyDetector.h
-anomaly_detection_util.h
-/home/linux-agron/Documents/AP/anomaly_detection_util.h
 AnomalyDetector.h
 /home/linux-agron/Documents/AP/AnomalyDetector.h
 vector
@@ -35,7 +33,27 @@ string.h
 -
 math.h
 -
+minCircle.h
+/home/linux-agron/Documents/AP/minCircle.h
 
+/home/linux-agron/Documents/AP/anomaly_detection_util.h
+
+/home/linux-agron/Documents/AP/minCircle.h
+minCircle.h
+/home/linux-agron/Documents/AP/minCircle.h
+algorithm
+-
+math.h
+-
+iostream
+-
+vector
+-
+stdlib.h
+-
+time.h
+-
+anomaly_detection_util.h
 /home/linux-agron/Documents/AP/anomaly_detection_util.h
 
 /home/linux-agron/Documents/AP/timeseries.h
