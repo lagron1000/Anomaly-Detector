@@ -115,9 +115,9 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
 
 void SimpleAnomalyDetector :: considerAddingCF(float p, float* m, int* j, int* index, float* valuesA, float* valuesB,
                                               int size, string* feat1, string* feat2, string* pair1,
-                                              Line* cfLine, float* cfThresh, int* f) {
+                                              Line* cfLine, float* cfThresh, int* found) {
     if (p >= *m) {
-        *f = 1;
+        *found = 1;
         *j = *index;
         // we want to couple this feat with its most correlative partner only, thus we up the local threshold
         // everytime we find a feat with witch featA is more correlative.

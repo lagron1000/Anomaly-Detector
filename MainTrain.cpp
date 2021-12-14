@@ -67,8 +67,11 @@ void checkCorrelationTrain(correlatedFeatures c,string f1, string f2, float a, f
 
 int main(){
     srand (time(NULL));
-    float a1=1+rand()%10, b1=-50+rand()%100;
-    float a2=1+rand()%20 , b2=-50+rand()%100;
+//    float a1=1+rand()%10, b1=-50+rand()%100;
+//    float a2=1+rand()%20 , b2=-50+rand()%100;
+
+    float a1=5, b1=18;
+    float a2=1 , b2=-16;
 
 
     // test the learned model: (40 points)
@@ -76,7 +79,7 @@ int main(){
     //	A-C: y=a1*x+b1
     //	B-D: y=a2*x+b2
 
-    generateTrainCSV(a1,b1,a2,b2);
+//    generateTrainCSV(a1,b1,a2,b2);
     TimeSeries ts("trainFile1.csv");
     SimpleAnomalyDetector ad;
     ad.learnNormal(ts);
@@ -92,8 +95,10 @@ int main(){
 
     // test the anomaly detector: (60 points)
     // one simply anomaly is injected to the data
-    int anomaly=5+rand()%90; // one anomaly injected in a random time step
-    generateTestCSV(a1,b1,a2,b2,anomaly);
+//    int anomaly=5+rand()%90; // one anomaly injected in a random time step
+    int anomaly=71; // one anomaly injected in a random time step
+
+//    generateTestCSV(a1,b1,a2,b2,anomaly);
     TimeSeries ts2("testFile1.csv");
     vector<AnomalyReport> r = ad.detect(ts2);
 
