@@ -1,4 +1,10 @@
-
+/*
+ * HybridAnomalyDetector.cpp
+ *
+ * Author:
+ * Or Spiegel 318720067
+ * Lior Agron 208250225
+ */
 #include "HybridAnomalyDetector.h"
 
 HybridAnomalyDetector::HybridAnomalyDetector() {
@@ -20,6 +26,15 @@ correlatedFeatures HybridAnomalyDetector::makeCF(string feat1, string feat2, flo
     return newCF;
 }
 
+bool HybridAnomalyDetector :: checkAnomaly(Point p, correlatedFeatures cf) {
+    bool simpAnomaly = SimpleAnomalyDetector::checkAnomaly(p, cf);
+    if (!simpAnomaly) {
+        float distFromCenter = distBetween(p, cf.minCirc.center);
+        return cf.corrlation < 0.9 &&  distFromCenter > cf.threshold;
+    }
+    return true;
+}
+
 void HybridAnomalyDetector :: addCF(TimeSeries ts, string firstFeat, string secondFeat, float m){
     if (m > 0.5 && m < 0.9) {
         map<string, std :: vector<float>> map = ts.getMap();
@@ -32,19 +47,4 @@ void HybridAnomalyDetector :: addCF(TimeSeries ts, string firstFeat, string seco
         return;
     }
     SimpleAnomalyDetector::addCF(ts, firstFeat, secondFeat, m);
-}
-
-
-void HybridAnomalyDetector :: considerAddingCF(float p, float* m, int* j, int* index, float* valuesA, float* valuesB,
-                      int size, string* feat1, string* feat2, string* pair1,
-                      Line* cfLine, float* cfThresh, int* f) {
-    SimpleAnomalyDetector::considerAddingCF(p, m, j, index, valuesA, valuesB, size, feat1, feat2, pair1,
-                                            cfLine, cfThresh, f);
-    if (!(*f)) {
-        if (p > 0.5) {
-            std::vector<Point*> points = getPointsVector(valuesA, valuesB, size);
-            Circle min = findMinCircle(&points[0], size);
-
-        }
-    }
 }

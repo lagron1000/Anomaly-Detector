@@ -1,5 +1,5 @@
 /*
- * anomaly_detection_util.cpp
+ * SimpleAnomalyDetector.cpp
  *
  * Author:
  * Or Spiegel 318720067
@@ -106,10 +106,7 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
                 m = p;
                 j = index;
                 secondFeat = collumBName;
-//                foundCorrelationFlag = true;
             }
-//            considerAddingCF(p, &m, &j, &index, valuesA, valuesB, size, &feat1,
-//                             &feat2, pair1, &cfLine, &cfThresh, &foundCorrelationFlag);
             index++;
         }
         // only do the following if we found a correlating feature.
@@ -119,12 +116,8 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
 
 void SimpleAnomalyDetector :: addCF(TimeSeries ts, string firstFeat, string secondFeat, float m) {
     if (m >= 0.9) {
-//            correlatedFeatures newCF = makeCF(feat1, feat2, m, cfLine, cfThresh);
-//            cf.push_back(newCF);
         map<string, std :: vector<float>> map = ts.getMap();
         vector<string> headers = ts.getHeaders();
-//        string firstFeat = it->first;
-//            string secondFeat = map[j];
         float* firstValues = map[firstFeat].data();
         float* secondValues = map[secondFeat].data();
         int size = map[firstFeat].size();
@@ -137,32 +130,14 @@ void SimpleAnomalyDetector :: addCF(TimeSeries ts, string firstFeat, string seco
     }
 }
 
-void SimpleAnomalyDetector :: considerAddingCF(float p, float* m, int* j, int* index, float* valuesA, float* valuesB,
-                                              int size, string* feat1, string* feat2, string* pair1,
-                                              Line* cfLine, float* cfThresh, int* found) {
-    if (p >= *m) {
-        *found = 1;
-        *j = *index;
-        // we want to couple this feat with its most correlative partner only, thus we up the local threshold
-        // everytime we find a feat with witch featA is more correlative.
-        *m = p;
-        std::vector<Point*> points = getPointsVector(valuesA, valuesB, size);
-        *feat1 = pair1[0];
-        *feat2 = pair1[1];
-        // linear_reg() accepts an Array so we convert the vector to one
-        // using the pointer to the first element.
-        *cfLine = linear_reg(&points[0], size);
-        *cfThresh = getCFThreshold(points, *cfLine, size);
-        deletePoints(points);
-    }
+bool SimpleAnomalyDetector :: checkAnomaly(Point p, correlatedFeatures cf) {
+    float d = dev(p, cf.lin_reg);
+    return cf.corrlation > 0.9 && d > cf.threshold;
 }
-
-
 
 vector<AnomalyReport> SimpleAnomalyDetector::detect(const TimeSeries& ts){
     vector<AnomalyReport> reports;
     int cSize = ts.getColSize();
-//    correlatedFeatures* pairs = &cf[0];
     map<string, std :: vector<float>> map = ts.getMap();
     // i is the row num
     for (int i = 0; i <  cSize; i++) {
@@ -173,8 +148,7 @@ vector<AnomalyReport> SimpleAnomalyDetector::detect(const TimeSeries& ts){
             float x = map[feat1][i];
             float y = map[feat2][i];
             Point p = Point(x, y);
-            float d = dev(p, cf[j].lin_reg);
-            if (d > cf[j].threshold) {
+            if (checkAnomaly(p, cf[j])) {
                 string desc = feat1 + "-" + feat2;
                 AnomalyReport AR = AnomalyReport(desc,i + 1);
                 reports.push_back(AR);

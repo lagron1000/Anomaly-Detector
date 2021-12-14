@@ -1,5 +1,5 @@
 /*
- * anomaly_detection_util.cpp
+ * SimpleAnomalyDetector.h
  *
  * Author:
  * Or Spiegel 318720067
@@ -38,11 +38,9 @@ public:
 	virtual void learnNormal(const TimeSeries& ts);
 	virtual vector<AnomalyReport> detect(const TimeSeries& ts);
     virtual correlatedFeatures makeCF(string feat1, string feat2, float p, Line l, float t);
-    virtual void considerAddingCF(float p, float* m, int* j, int* index, float* valuesA, float* valuesB,
-                                 int size, string* feat1, string* feat2, string* pair1,
-                                 Line* cfLine, float* cfThresh, int* f);
     std::vector<Point*> getPointsVector(float* a, float* b, int size);
     virtual void addCF(TimeSeries ts, string firstFeat, string secondFeat, float m);
+    virtual bool checkAnomaly(Point p, correlatedFeatures cf);
 	vector<correlatedFeatures> getNormalModel(){
 		return cf;
 	}

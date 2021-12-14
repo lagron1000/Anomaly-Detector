@@ -1,4 +1,10 @@
-
+/*
+ * HybridAnomalyDetector.h
+ *
+ * Author:
+ * Or Spiegel 318720067
+ * Lior Agron 208250225
+ */
 
 #ifndef HYBRIDANOMALYDETECTOR_H_
 #define HYBRIDANOMALYDETECTOR_H_
@@ -11,10 +17,8 @@ public:
 	HybridAnomalyDetector();
 	virtual ~HybridAnomalyDetector();
     virtual correlatedFeatures makeCF(string feat1, string feat2, float p, float threshold, Circle c);
-    virtual void considerAddingCF(float p, float* m, int* j, int* index, float* valuesA, float* valuesB,
-                                  int size, string* feat1, string* feat2, string* pair1,
-                                  Line* cfLine, float* cfThresh, int* f);
     virtual void addCF(TimeSeries ts, string firstFeat, string secondFeat, float m);
+    virtual bool checkAnomaly(Point p, correlatedFeatures cf);
 
 };
 
