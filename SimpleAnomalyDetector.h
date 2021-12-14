@@ -30,7 +30,8 @@ struct correlatedFeatures{
 
 
 class SimpleAnomalyDetector:public TimeSeriesAnomalyDetector{
-	vector<correlatedFeatures> cf;
+protected:
+    vector<correlatedFeatures> cf;
 public:
 	SimpleAnomalyDetector();
 	virtual ~SimpleAnomalyDetector();
@@ -40,7 +41,8 @@ public:
     virtual void considerAddingCF(float p, float* m, int* j, int* index, float* valuesA, float* valuesB,
                                  int size, string* feat1, string* feat2, string* pair1,
                                  Line* cfLine, float* cfThresh, int* f);
-
+    std::vector<Point*> getPointsVector(float* a, float* b, int size);
+    virtual void addCF(TimeSeries ts, string firstFeat, string secondFeat, float m);
 	vector<correlatedFeatures> getNormalModel(){
 		return cf;
 	}

@@ -25,7 +25,7 @@ void deletePoints(std::vector<Point*> points) {
     }
 }
 
-std::vector<Point*> getPointsVector(float* a, float* b, int size) {
+std::vector<Point*> SimpleAnomalyDetector :: getPointsVector(float* a, float* b, int size) {
     std::vector<Point*> points;
     for (int t = 0; t <= size; t++) {
         Point* p = new Point(a[t], b[t]);
@@ -75,9 +75,10 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
         float cfThresh;
         float p = 0;
         int j = 0;
+        string secondFeat;
         int index = 0;
         // m is the highest correlation recorded for this feature (Above the base threshold). base threshold is 0.9.
-        float m = 0.9;
+        float m = 0;
         string collumAName = it->first;
         float* valuesA = &it->second[0];
         int foundCorrelationFlag = 0;
@@ -101,15 +102,38 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
             p = pearson(valuesA, valuesB, size);
             // if pearson is negative - multiply it by -1.
             if (p < 0 ) p = (-1) * p;
-            considerAddingCF(p, &m, &j, &index, valuesA, valuesB, size, &feat1,
-                             &feat2, pair1, &cfLine, &cfThresh, &foundCorrelationFlag);
+            if (p > m) {
+                m = p;
+                j = index;
+                secondFeat = collumBName;
+//                foundCorrelationFlag = true;
+            }
+//            considerAddingCF(p, &m, &j, &index, valuesA, valuesB, size, &feat1,
+//                             &feat2, pair1, &cfLine, &cfThresh, &foundCorrelationFlag);
             index++;
         }
         // only do the following if we found a correlating feature.
-        if (foundCorrelationFlag) {
-            correlatedFeatures newCF = makeCF(feat1, feat2, m, cfLine, cfThresh);
-            cf.push_back(newCF);
-        }
+        addCF(ts, it->first, secondFeat, m);
+    }
+}
+
+void SimpleAnomalyDetector :: addCF(TimeSeries ts, string firstFeat, string secondFeat, float m) {
+    if (m >= 0.9) {
+//            correlatedFeatures newCF = makeCF(feat1, feat2, m, cfLine, cfThresh);
+//            cf.push_back(newCF);
+        map<string, std :: vector<float>> map = ts.getMap();
+        vector<string> headers = ts.getHeaders();
+//        string firstFeat = it->first;
+//            string secondFeat = map[j];
+        float* firstValues = map[firstFeat].data();
+        float* secondValues = map[secondFeat].data();
+        int size = map[firstFeat].size();
+        std::vector<Point*> points = getPointsVector(firstValues, secondValues, size);
+        Line newLine = linear_reg(&points[0], size);
+        float newThresh = getCFThreshold(points, newLine, size);
+        deletePoints(points);
+        correlatedFeatures newCF = makeCF(firstFeat, secondFeat, m, newLine, newThresh);
+        cf.push_back(newCF);
     }
 }
 

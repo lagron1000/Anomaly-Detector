@@ -30,7 +30,7 @@ public:
     explicit TimeSeries (const char* CSVfileName);
     // why explicit?
     vector<string> splitter(string givenString);
-    vector<string> getHeaders();
+    vector<string> getHeaders() const;
     int getColSize() const;
     map<string, std :: vector<float>> getMap() const;
 };
