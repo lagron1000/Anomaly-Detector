@@ -129,6 +129,30 @@ AP/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/build
 .PHONY : AP/fast
 
+HybridAnomalyDetector.o: HybridAnomalyDetector.cpp.o
+.PHONY : HybridAnomalyDetector.o
+
+# target to build an object file
+HybridAnomalyDetector.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/HybridAnomalyDetector.cpp.o
+.PHONY : HybridAnomalyDetector.cpp.o
+
+HybridAnomalyDetector.i: HybridAnomalyDetector.cpp.i
+.PHONY : HybridAnomalyDetector.i
+
+# target to preprocess a source file
+HybridAnomalyDetector.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/HybridAnomalyDetector.cpp.i
+.PHONY : HybridAnomalyDetector.cpp.i
+
+HybridAnomalyDetector.s: HybridAnomalyDetector.cpp.s
+.PHONY : HybridAnomalyDetector.s
+
+# target to generate assembly for a file
+HybridAnomalyDetector.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/HybridAnomalyDetector.cpp.s
+.PHONY : HybridAnomalyDetector.cpp.s
+
 MainTrain.o: MainTrain.cpp.o
 .PHONY : MainTrain.o
 
@@ -201,6 +225,30 @@ anomaly_detection_util.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/anomaly_detection_util.cpp.s
 .PHONY : anomaly_detection_util.cpp.s
 
+minCircle.o: minCircle.cpp.o
+.PHONY : minCircle.o
+
+# target to build an object file
+minCircle.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/minCircle.cpp.o
+.PHONY : minCircle.cpp.o
+
+minCircle.i: minCircle.cpp.i
+.PHONY : minCircle.i
+
+# target to preprocess a source file
+minCircle.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/minCircle.cpp.i
+.PHONY : minCircle.cpp.i
+
+minCircle.s: minCircle.cpp.s
+.PHONY : minCircle.s
+
+# target to generate assembly for a file
+minCircle.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/minCircle.cpp.s
+.PHONY : minCircle.cpp.s
+
 timeseries.o: timeseries.cpp.o
 .PHONY : timeseries.o
 
@@ -234,6 +282,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... AP"
+	@echo "... HybridAnomalyDetector.o"
+	@echo "... HybridAnomalyDetector.i"
+	@echo "... HybridAnomalyDetector.s"
 	@echo "... MainTrain.o"
 	@echo "... MainTrain.i"
 	@echo "... MainTrain.s"
@@ -243,6 +294,9 @@ help:
 	@echo "... anomaly_detection_util.o"
 	@echo "... anomaly_detection_util.i"
 	@echo "... anomaly_detection_util.s"
+	@echo "... minCircle.o"
+	@echo "... minCircle.i"
+	@echo "... minCircle.s"
 	@echo "... timeseries.o"
 	@echo "... timeseries.i"
 	@echo "... timeseries.s"

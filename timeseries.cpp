@@ -36,7 +36,7 @@ vector<string> TimeSeries :: splitter(string givenString) {
     return lineVector;
 }
 
-vector<string> TimeSeries :: getHeaders() {
+vector<string> TimeSeries :: getHeaders() const {
     return headers;
 }
 
