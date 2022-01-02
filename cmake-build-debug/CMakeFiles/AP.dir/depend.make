@@ -11,10 +11,12 @@ CMakeFiles/AP.dir/HybridAnomalyDetector.cpp.o: \
  ../timeseries.h
 CMakeFiles/AP.dir/MainTrain.cpp.o: \
  ../AnomalyDetector.h \
+ ../CLI.h \
  ../HybridAnomalyDetector.h \
  ../MainTrain.cpp \
  ../SimpleAnomalyDetector.h \
  ../anomaly_detection_util.h \
+ ../commands.h \
  ../minCircle.h \
  ../timeseries.h
 CMakeFiles/AP.dir/SimpleAnomalyDetector.cpp.o: \
