@@ -10,6 +10,10 @@
 #include <vector>
 #include "HybridAnomalyDetector.h"
 
+#define INT_A(aStart, aEnd, bStart, bEnd) ((aStart <= bEnd) && (aEnd >= bStart))
+#define INT_B(aStart, aEnd, bStart, bEnd) ((bStart <= aEnd) && (bEnd >= aStart))
+#define LINES_INT(aStart, aEnd, bStart, bEnd) (INT_A(aStart, aEnd, bStart, bEnd) || INT_B(aStart, aEnd, bStart, bEnd))
+
 using namespace std;
 
 class DefaultIO{
@@ -20,28 +24,147 @@ public:
 	virtual void read(float* f)=0;
 	virtual ~DefaultIO(){}
 
+    void writeToFile(string newFileName) {
+        ofstream out(newFileName);
+        string line = "";
+        while ((line = read()) != "done") {
+            out<<line<<endl;
+        }
+        out.close();
+    }
 	// you may add additional methods here
 };
 
 // you may add here helper classes
 
+class StandardIO : DefaultIO {
+
+public:
+    virtual string read(){
+        string s;
+        cin>>s;
+        return s;
+    }
+    virtual void write(string text){
+        cout<<text;
+    }
+
+    virtual void write(float f){
+        cout<<f;
+    }
+
+    virtual void read(float* f){
+        cin>>*f;
+    }
+
+};
+
+struct Data{
+    float threshold;
+    vector<AnomalyReport> reports;
+    Data(){
+        threshold=0.9;
+    }
+};
+
 
 // you may edit this class
 class Command{
-	DefaultIO* dio;
+protected:
+    DefaultIO* dio;
 public:
-    public string desc;
-    Command(DefaultIO* dio):dio(dio){}
-    virtual std::string getDesc(){return desc};
+  string desc;
+	Command(DefaultIO* dio, string desc):dio(dio), desc(desc){}
+  virtual std::string getDesc(){return desc};
 	virtual void execute()=0;
 	virtual ~Command(){}
 };
 
-struct Data {
-    float threshold;
-    vector<AnomalyReport> reports;
-    Data() {
-        threshold = 0.9;
+// implement here your command classes
+
+class UploadFile : Command {
+public:
+    UploadFile(DefaultIO* dio) : Command(dio, "upload a time series csv file"){}
+
+    virtual void execute() {
+        dio->write("Please upload your local train CSV file.\n");
+        dio->writeToFile("anomalyTrain.csv");
+        dio->write("Upload complete\n");
+        dio->write("Please upload your local test CSV file.\n");
+        dio->writeToFile("anomalyTest.csv");
+        dio->write("Upload complete\n");
+    }
+};
+
+class UploadAnomalies : Command {
+public:
+    UploadAnomalies(DefaultIO* dio) : Command(dio, "upload anomalies and analyze results"){}
+
+    void addAnomaly(string line, vector<Point>* p) {
+        float x, y;
+        string sX, sY;
+        int commaI = line.find(',');
+        sX = line.substr(0, commaI);
+        sY = line.substr(commaI + 1);
+        x = stoi(sX);
+        y = stoi(sY);
+        //TODO: check if this here below works
+        p->push_back(Point(x, y));
+    }
+
+    vector<Point> getTimeIntervals(Data data) {
+        vector<Point> points;
+        vector<AnomalyReport> reports = data.reports;
+        int reportsSize = reports.size();
+        float x = reports[0].timeStep;
+        int count = 0;
+        for (int i = 0; i <= reportsSize; i++) {
+            if (reports[i].timeStep != x || i == reportsSize) {
+                float y = x + count;
+                Point rep = Point(x, y);
+                points.push_back(rep);
+                x = reports[i].timeStep;
+                count = 0;
+                break;
+            }
+            count++;
+        }
+        return points;
+    }
+
+    virtual void execute(Data data) {
+        dio->write("Please upload your local anomalies file.");
+        vector<Point> anomaliesUploaded;
+        string line = dio->read();
+        int n = 0;
+        while (line != "done") {
+            addAnomaly(line, &anomaliesUploaded);
+            line = dio->read();
+            n++;
+        }
+        dio->write("Upload Complete.");
+        int falsePosCount = 0;
+        int truePosCount = 0;
+
+        vector<Point> anomaliesDetected = getTimeIntervals(data);
+
+        int p = anomaliesDetected.size();
+
+        for (Point uploaded : anomaliesUploaded) {
+            float aStart = uploaded.x;
+            float aEnd = uploaded.y;
+            for (Point detected : anomaliesDetected) {
+                float bStart = detected.x;
+                float bEnd = detected.y;
+                if (LINES_INT(aStart, aEnd, bStart, bEnd)) truePosCount++;
+                else falsePosCount++;
+            }
+        }
+
+        dio->write("True Positive Rate: ");
+        dio->write(truePosCount / p);
+        dio->write("False Positive Rate: ");
+        dio->write(falsePosCount / n);
     }
 };
 
@@ -101,7 +224,6 @@ public:
     }
 };
 
-// implement here your command classes
 
 
 
