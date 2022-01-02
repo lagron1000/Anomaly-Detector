@@ -4,7 +4,7 @@
 #include <string>
 
 CLI::CLI(DefaultIO* dio) {
-    this->dio = dio;
+    this->dio = dio'';
     commamnds.push_back(new uploadCVS(dio));
     commamnds.push_back(new AlgorithmSettings(dio));
     commamnds.push_back(new DetectAnomalies(dio));
