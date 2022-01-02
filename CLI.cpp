@@ -66,6 +66,7 @@ void CLI::start(){
 }
 
 // delete commands i think?
+// ye
 CLI::~CLI(DefaultIO* io) {
 }
 

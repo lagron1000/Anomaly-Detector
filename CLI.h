@@ -10,10 +10,10 @@ using namespace std;
 
 class CLI {
 	DefaultIO* dio;
-    Vector<Command> commands;
+    vector<Command> commands;
 	// you can add data members
 public:
-	CLI(DefaultIO* dio);
+	CLI(DefaultIO* dio) ;
 	void start();
 	virtual ~CLI();
 };

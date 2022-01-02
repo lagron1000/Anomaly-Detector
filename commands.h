@@ -75,13 +75,16 @@ protected:
 public:
   string desc;
 	Command(DefaultIO* dio, string desc):dio(dio), desc(desc){}
-  virtual std::string getDesc(){return desc};
+  virtual std::string getDesc(){return desc;}
 	virtual void execute()=0;
 	virtual ~Command(){}
 };
 
 // implement here your command classes
 
+/**
+ * command 1
+ */
 class UploadFile : Command {
 public:
     UploadFile(DefaultIO* dio) : Command(dio, "upload a time series csv file"){}
@@ -96,6 +99,67 @@ public:
     }
 };
 
+/**
+ * command 2
+ */
+class AlgorithmSettings : public Command {
+    public:
+    AlgorithmSettings(DefaultIO* dio) : Command(dio, "algorithm settings") {}
+    virtual void execute(Data* data) {
+        bool valid = false;
+        dio->write("The current threshold is ");
+        dio->write(data->threshold);
+        dio->write("\nType a new threshold\n");
+
+        float inputVal;
+        dio->read(&inputVal);
+
+        while (!valid) {
+            if (inputVal > 0 && inputVal <= 1) {
+                data->threshold = inputVal;
+                valid = true;
+            } else {
+                dio->write("please choose a value between 0 and 1.\n");
+            }
+        }
+    }
+};
+
+/**
+ * command 3
+ */
+class DetectAnomalies : public Command {
+public:
+    DetectAnomalies(DefaultIO* dio) : Command(dio, "detect anomalies\n") {}
+    virtual void execute(Data* data) {
+        TimeSeries ts1("anomalyTrain.csv");
+        TimeSeries ts2("anomalyTest.csv");
+        HybridAnomalyDetector hd;
+        // learning
+        hd.learnNormal(ts1);
+        // detect test
+        data->reports = hd.detect(ts2);
+        dio->write("anomaly detection complete.\n");
+    }
+};
+
+/**
+ * command 4
+ */
+class DisplayResults : public Command {
+public:
+    DisplayResults(DefaultIO* dio) : Command(dio, "display results\n") {}
+    virtual void execute(Data* data) {
+       for (int i = 0; i < data->reports.size(); i++) {
+           dio->write(std::to_string(data->reports[i].timeStep ) + "\t" + data->reports[i].description + "\n");
+       }
+       dio->write("Done.\n");
+    }
+};
+
+/**
+ * command 5
+ */
 class UploadAnomalies : Command {
 public:
     UploadAnomalies(DefaultIO* dio) : Command(dio, "upload anomalies and analyze results"){}
@@ -165,62 +229,6 @@ public:
         dio->write(truePosCount / p);
         dio->write("False Positive Rate: ");
         dio->write(falsePosCount / n);
-    }
-};
-
-/**
- * command 2
- */
-class AlgorithmSettings : public Command {
-    public:
-    AlgorithmSettings(DefaultIO* io) : Command(io, "algorithm settings") {}
-    virtual void execute(Data* data) {
-        bool valid = false;
-        io->write("The current threshold is ");
-        io->write("%f", data->threshold);
-        io->write("\nType a new threshold\n");
-
-        float inputVal;
-        io->read(&inputVal);
-
-        while (!valid) {
-            if (inputVal > 0 && inputVal <= 1) {
-                data->threshold = inputVal;
-                valid = true;
-            } else {
-                io->write("please choose a value between 0 and 1.\n")
-            }
-        }
-    }
-};
-
-/**
- * command 3
- */
-class DetectAnomalies : public Command {
-public:
-    DetectAnomalies(DefaultIO* io) : Command(io, "detect anomalies\n") {}
-    virtual void execute(Data* data) {
-        TimeSeries ts1("anomalyTrain.csv");
-        TimeSeries ts2("anomalyTest.csv");
-        HybridAnomalyDetector hd;
-        // learning
-        hd.learnNormal(ts1);
-        // detect test
-        data->reports = hd.detect(ts2);
-        io->write("anomaly detection complete.\n");
-    }
-};
-/**
- * command 4
- */
-class DisplayResults : public Command {
-public:
-    DisplayResults(DefaultIO* io) : Command(io, "display results\n") {}
-    virtual void execute(Data* data) {
-       for (int i = 0; i < data->reports.size(); i++) {
-           this->io->write(std::to_string(data->reports[i].timeStep ) + "\t" + data->reports[i].description + "\n");
-       } io.write("Done.\n");
     }
 };
 
