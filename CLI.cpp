@@ -1,15 +1,18 @@
 #include "CLI.h"
+
 #include <iostream>
 #include <sstream>
 #include <string>
+using namespace std;
+
 
 CLI::CLI(DefaultIO* dio) {
     this->dio = dio;
-    commamnds.push_back(new uploadCVS(dio));
-    commamnds.push_back(new AlgorithmSettings(dio));
-    commamnds.push_back(new DetectAnomalies(dio));
-    commamnds.push_back(new DisplayResults(dio));
-    commamnds.push_back(new UploadAnomalies(dio));
+    commands.push_back(new UploadFile(dio));
+    commands.push_back(new AlgorithmSettings(dio));
+    commands.push_back(new DetectAnomalies(dio));
+    commands.push_back(new DisplayResults(dio));
+    commands.push_back(new UploadAnomalies(dio));
 }
 /**
  * show all the commands on screen. (the options)
@@ -19,7 +22,8 @@ void CLI::showCommands() {
         dio->write(commands[i].getDesc());
     }
 }
-void CLI::start(){
+void CLI::start() {
+    Data data;
     int opt;
     std::string stringOpt;
     while(true) {
@@ -33,29 +37,29 @@ void CLI::start(){
         num >> opt;
 
         if (opt == 1) {
-            commands[0]->execute();
+            commands[0]->execute(&data);
             continue;
         }
 
         if (opt == 2) {
-            commands[1]->execute();
+            commands[1]->execute(&data);
             continue;
         }
         if (opt == 3) {
-            commands[2]->execute();
+            commands[2]->execute(&data);
             continue;
         }
         if (opt == 4) {
-            commands[3]->execute();
+            commands[3]->execute(&data);
             continue;
         }
         if (opt == 5) {
-            commands[4]->execute();
+            commands[4]->execute(&data);
             continue;
         }
         if (opt == 6) {
             for (int i = 0; i < commands.size(); i++) {
-                delete command[i];
+                delete commands[i];
             }
             break;
         }
@@ -67,6 +71,6 @@ void CLI::start(){
 
 // delete commands i think?
 // ye
-CLI::~CLI(DefaultIO* io) {
+CLI::~CLI() {
 }
 
