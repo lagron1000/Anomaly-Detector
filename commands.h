@@ -59,7 +59,7 @@ public:
 
 };
 
-struct Data{
+struct Data {
     float threshold;
     vector<AnomalyReport> reports;
     Data(){
@@ -68,7 +68,6 @@ struct Data{
 };
 
 
-// you may edit this class
 class Command{
 protected:
     DefaultIO* dio;
@@ -76,20 +75,19 @@ public:
   string desc;
 	Command(DefaultIO* dio, string desc):dio(dio), desc(desc){}
   virtual std::string getDesc(){return desc;}
-	virtual void execute()=0;
+	virtual void execute(Data* data)=0;
 	virtual ~Command(){}
 };
 
-// implement here your command classes
 
 /**
  * command 1
  */
-class UploadFile : Command {
+class UploadFile : public Command {
 public:
     UploadFile(DefaultIO* dio) : Command(dio, "upload a time series csv file"){}
 
-    virtual void execute() {
+    virtual void execute(Data* data) {
         dio->write("Please upload your local train CSV file.\n");
         dio->writeToFile("anomalyTrain.csv");
         dio->write("Upload complete\n");
@@ -160,7 +158,7 @@ public:
 /**
  * command 5
  */
-class UploadAnomalies : Command {
+class UploadAnomalies : public Command {
 public:
     UploadAnomalies(DefaultIO* dio) : Command(dio, "upload anomalies and analyze results"){}
 
@@ -196,6 +194,8 @@ public:
         return points;
     }
 
+    //todo:
+    // supposed to be Data* data!!
     virtual void execute(Data data) {
         dio->write("Please upload your local anomalies file.");
         vector<Point> anomaliesUploaded;
