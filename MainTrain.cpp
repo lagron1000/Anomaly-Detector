@@ -6,6 +6,28 @@
 
 using namespace std;
 
+class StandardIO : public DefaultIO {
+
+public:
+    StandardIO(){}
+    virtual string read(){
+        string s;
+        cin>>s;
+        return s;
+    }
+    virtual void write(string text){
+        cout<<text;
+    }
+
+    virtual void write(float f){
+        cout<<f;
+    }
+
+    virtual void read(float* f){
+        cin>>*f;
+    }
+
+};
 
 class STDtest:public DefaultIO{
 	ifstream in;
@@ -74,6 +96,7 @@ void check(string outputFile,string expectedOutputFile){
  //small test
 int main(){
 	STDtest std("input.txt","output.txt");
+    StandardIO dio = StandardIO();
 	CLI cli(&std);
 	cli.start();
 	std.close();
