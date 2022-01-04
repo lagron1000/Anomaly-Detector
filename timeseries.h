@@ -32,6 +32,7 @@ public:
     vector<string> splitter(string givenString);
     vector<string> getHeaders() const;
     int getColSize() const;
+    int getRowSize() const;
     map<string, std :: vector<float>> getMap() const;
 };
 
