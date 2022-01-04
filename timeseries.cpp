@@ -48,6 +48,10 @@ int TimeSeries :: getColSize() const {
     return collumnSize;
 }
 
+int TimeSeries :: getRowSize() const {
+    return rowSize;
+}
+
 
 
 /**************************************************
