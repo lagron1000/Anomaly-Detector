@@ -19,15 +19,17 @@ CLI::CLI(DefaultIO* dio) {
  */
 void CLI::showCommands() {
     for (int i = 0; i < commands.size(); i++) {
-        dio->write(commands[i].getDesc());
+        string id = to_string(i + 1);
+        dio->write(id + "." + commands[i]->getDesc());
     }
+    dio->write("6.exit\n");
 }
 void CLI::start() {
     Data data;
     int opt;
     std::string stringOpt;
-    while(true) {
 
+    while(true) {
         dio->write("Welcome to the Anomaly Detection Server.\n");
         dio->write("Please choose an option:\n");
         showCommands();
@@ -58,6 +60,7 @@ void CLI::start() {
             continue;
         }
         if (opt == 6) {
+            // TODO: should use deconstructor
             for (int i = 0; i < commands.size(); i++) {
                 delete commands[i];
             }

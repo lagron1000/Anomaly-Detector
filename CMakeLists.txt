@@ -17,4 +17,7 @@ add_executable(AP
         minCircle.cpp
         minCircle.h
         HybridAnomalyDetector.cpp
-        HybridAnomalyDetector.h)
+        HybridAnomalyDetector.h
+        CLI.cpp
+        CLI.h
+        commands.h)
