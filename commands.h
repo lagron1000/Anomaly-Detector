@@ -9,6 +9,8 @@
 #include <fstream>
 #include <vector>
 #include "HybridAnomalyDetector.h"
+#include <sstream>
+#include <sys/socket.h>
 
 #define INT_A(aStart, aEnd, bStart, bEnd) ((aStart <= bEnd) && (aEnd >= bStart))
 #define INT_B(aStart, aEnd, bStart, bEnd) ((bStart <= aEnd) && (bEnd >= aStart))
@@ -44,11 +46,58 @@ public:
         }
         out.close();
     }
-	// you may add additional methods here
 };
 
-// you may add here helper classes
+class StandardIO : public DefaultIO {
 
+public:
+    StandardIO(){}
+    virtual string read(){
+        string s;
+        cin>>s;
+        return s;
+    }
+    virtual void write(string text){
+        cout<<text;
+    }
+
+    virtual void write(float f){
+        cout<<f;
+    }
+
+    virtual void read(float* f){
+        cin>>*f;
+    }
+
+};
+
+class SocketIO : public DefaultIO {
+    int id;
+
+public:
+    SocketIO(int id) : id(id){}
+
+    virtual string read() {
+        char buf = 0;
+        string input = "";
+        while (buf != '\n') {
+            recv(id, &buf, sizeof(char), 0);
+            input += buf;
+        }
+        return input;
+    }
+    virtual void write(string text) {
+        send(id, text.c_str(), text.size(), 0);
+    }
+    virtual void write(float f){
+        ostringstream oss;
+        oss << f;
+        write (oss.str());
+    }
+    virtual void read(float* f){
+        recv(id, f, sizeof(char), 0);
+    }
+};
 
 class Command{
 protected:
