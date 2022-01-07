@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "AP"
   "AP.pdb"
+  "CMakeFiles/AP.dir/CLI.cpp.o"
   "CMakeFiles/AP.dir/HybridAnomalyDetector.cpp.o"
   "CMakeFiles/AP.dir/MainTrain.cpp.o"
   "CMakeFiles/AP.dir/SimpleAnomalyDetector.cpp.o"

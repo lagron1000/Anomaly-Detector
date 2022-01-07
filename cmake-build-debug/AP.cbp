@@ -87,6 +87,12 @@
 		<Unit filename="/home/linux-agron/Documents/AP/AnomalyDetector.h">
 			<Option target="AP"/>
 		</Unit>
+		<Unit filename="/home/linux-agron/Documents/AP/CLI.cpp">
+			<Option target="AP"/>
+		</Unit>
+		<Unit filename="/home/linux-agron/Documents/AP/CLI.h">
+			<Option target="AP"/>
+		</Unit>
 		<Unit filename="/home/linux-agron/Documents/AP/HybridAnomalyDetector.cpp">
 			<Option target="AP"/>
 		</Unit>
@@ -106,6 +112,9 @@
 			<Option target="AP"/>
 		</Unit>
 		<Unit filename="/home/linux-agron/Documents/AP/anomaly_detection_util.h">
+			<Option target="AP"/>
+		</Unit>
+		<Unit filename="/home/linux-agron/Documents/AP/commands.h">
 			<Option target="AP"/>
 		</Unit>
 		<Unit filename="/home/linux-agron/Documents/AP/minCircle.cpp">
