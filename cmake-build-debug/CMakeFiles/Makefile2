@@ -81,12 +81,12 @@ clean: CMakeFiles/AP.dir/clean
 CMakeFiles/AP.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP.dir/build.make CMakeFiles/AP.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/linux-agron/Documents/AP/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target AP"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/linux-agron/Documents/AP/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target AP"
 .PHONY : CMakeFiles/AP.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/AP.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/linux-agron/Documents/AP/cmake-build-debug/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/linux-agron/Documents/AP/cmake-build-debug/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/AP.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/linux-agron/Documents/AP/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/AP.dir/rule

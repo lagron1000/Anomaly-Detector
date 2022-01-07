@@ -181,28 +181,6 @@ public:
                 x = reports[i+1].timeStep;
             }
         }
-//        for (int i = 0; i < reportsSize; i++) {
-//            if (i < reportsSize-1 && reports[i].description == reports[i+1].description) {
-//                float y = x + count;
-//                Point rep = Point(x, y);
-//                points.push_back(rep);
-//                x = reports[i].timeStep;
-//                count = 0;
-//                break;
-//            }
-//            count++;
-//        }
-//        for (int i = 0; i <= reportsSize; i++) {
-//            if (reports[i].timeStep != x || i == reportsSize) {
-//                float y = x + count;
-//                Point rep = Point(x, y);
-//                points.push_back(rep);
-//                x = reports[i].timeStep;
-//                count = 0;
-//                break;
-//            }
-//            count++;
-//        }
         return points;
     }
 
@@ -225,31 +203,14 @@ public:
 
         vector<Point> anomaliesDetected = getTimeIntervals(data);
 
-//        int p = anomaliesDetected.size();
         int sum = 0;
         for (Point p : anomaliesUploaded) {
             sum += p.y - p.x + 1;
         }
 
-//        for (Point uploaded : anomaliesUploaded) {
-//            float aStart = uploaded.x;
-//            float aEnd = uploaded.y;
-//            bool gotTP = false;
-//            for (Point detected : anomaliesDetected) {
-//                float bStart = detected.x;
-//                float bEnd = detected.y;
-//                if (LINES_INT(aStart, aEnd, bStart, bEnd)) {
-//                    truePosCount++;
-//                    gotTP = true;
-//                    break;
-//                }
-//            }
-//            if (!gotTP) falsePosCount++;
-//        }
         for (Point detected : anomaliesDetected) {
             float aStart = detected.x;
             float aEnd = detected.y;
-//            sum += aEnd - aStart + 1;
             bool gotTP;
             for (Point uploaded : anomaliesUploaded) {
                 gotTP = false;
@@ -263,30 +224,10 @@ public:
             }
             if (!gotTP) falsePosCount++;
         }
-//        for (Point uploaded : anomaliesUploaded) {
-//            float aStart = uploaded.x;
-//            float aEnd = uploaded.y;
-//            sum += aEnd - aStart + 1;
-//            bool gotTp = false;
-//            int tmp = 0;
-//            for (Point detected : anomaliesDetected) {
-//                float bStart = detected.x;
-//                float bEnd = detected.y;
-//                if (LINES_INT(aStart, aEnd, bStart, bEnd)) {
-//                    truePosCount++;
-//                    gotTp = true;
-////                    if (aEnd > bStart) truePosCount += aEnd - bStart + 1;
-////                    else truePosCount += bEnd - aStart + 1;
-//                }
-//                else tmp++;
-////                else falsePosCount++;
-//            }
-//            if (!gotTp) falsePosCount = tmp;
-//        }
+
         int N = n - sum;
         dio->write("True Positive Rate: ");
         dio->write(((int)(1000.0*truePosCount / p))/1000.0f);
-
         dio->write("\nFalse Positive Rate: ");
         dio->write(((int)(1000.0*falsePosCount / N))/1000.0f);
         dio->write("\n");
